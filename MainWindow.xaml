@@ -1,80 +1,14 @@
-﻿<Window x:Class="CheckersBoard.MainWindow"
+<Window x:Class="CheckersGame.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Шашки" Height="800" Width="800">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CheckersGame"
+        mc:Ignorable="d"
+        Title="шашки" Height="600" Width="600">
     <Grid>
-        <UniformGrid x:Name="Pole" Rows="8" Columns="8">
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-            <Rectangle Fill="Brown"/>
-            <Rectangle Fill="White"/>
-        </UniformGrid>
+        <Canvas x:Name="BoardCanvas" Background="BurlyWood" MouseDown="BoardCanvas_MouseDown"/>
+        <TextBlock x:Name="StatusText" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   Margin="0,10,0,0" FontSize="16" FontWeight="Bold"/>
     </Grid>
 </Window>
