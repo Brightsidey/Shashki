@@ -31,7 +31,6 @@ namespace CheckersGame
 
         private void InitializeBoard()
         {
-            // Заполняем доску шашками
             for (int row = 0; row < BoardSize; row++)
             {
                 for (int col = 0; col < BoardSize; col++)
@@ -74,7 +73,6 @@ namespace CheckersGame
                 }
             }
 
-            // Рисуем шашки
             for (int row = 0; row < BoardSize; row++)
             {
                 for (int col = 0; col < BoardSize; col++)
@@ -104,7 +102,6 @@ namespace CheckersGame
                 }
             }
 
-            // Подсвечиваем возможные ходы
             foreach (var move in possibleMoves)
             {
                 var highlight = new Ellipse
@@ -120,7 +117,6 @@ namespace CheckersGame
                 BoardCanvas.Children.Add(highlight);
             }
 
-            // Подсвечиваем выбранную шашку
             if (selectedPiece != null)
             {
                 for (int row = 0; row < BoardSize; row++)
@@ -155,14 +151,12 @@ namespace CheckersGame
 
             if (row < 0 || row >= BoardSize || col < 0 || col >= BoardSize) return;
 
-            // Если есть обязательное взятие, проверяем, что ход именно им
             if (mustCapture && selectedPiece != null && possibleMoves.Contains(new Point(row, col)))
             {
                 MovePiece(row, col);
                 return;
             }
 
-            // Если выбрана шашка текущего игрока
             if (board[row, col] != null && board[row, col].IsWhite == isWhiteTurn)
             {
                 selectedPiece = board[row, col];
@@ -171,7 +165,6 @@ namespace CheckersGame
                 return;
             }
 
-            // Если выбрана пустая клетка и есть выбранная шашка
             if (board[row, col] == null && selectedPiece != null && possibleMoves.Contains(new Point(row, col)))
             {
                 MovePiece(row, col);
@@ -194,11 +187,9 @@ namespace CheckersGame
                 }
             }
 
-            // Перемещаем шашку
             board[toRow, toCol] = selectedPiece;
             board[fromRow, fromCol] = null;
 
-            // Для дамки обрабатываем все взятия по пути
             if (selectedPiece.IsKing)
             {
                 int rowStep = toRow > fromRow ? 1 : -1;
@@ -214,11 +205,11 @@ namespace CheckersGame
                     {
                         board[currentRow, currentCol] = null;
                         lastCapturePosition = new Point(toRow, toCol);
-                        break; // Дамка может бить только одну шашку за ход
+                        break; 
                     }
                 }
             }
-            else // Для обычной шашки
+            else
             {
                 bool isCapture = Math.Abs(toRow - fromRow) == 2;
                 if (isCapture)
@@ -234,13 +225,11 @@ namespace CheckersGame
                 }
             }
 
-            // Проверяем превращение в дамку
             if ((selectedPiece.IsWhite && toRow == 0) || (!selectedPiece.IsWhite && toRow == BoardSize - 1))
             {
                 selectedPiece.IsKing = true;
             }
 
-            // Проверяем, есть ли продолжение взятия
             bool canContinueCapture = false;
             if (lastCapturePosition != null)
             {
@@ -281,10 +270,8 @@ namespace CheckersGame
 
             if (piece == null) return moves;
 
-            // Для дамки
             if (piece.IsKing)
             {
-                // Проверяем все 4 диагональных направления
                 int[] rowDirections = { -1, -1, 1, 1 };
                 int[] colDirections = { -1, 1, -1, 1 };
 
@@ -313,7 +300,6 @@ namespace CheckersGame
                         {
                             if (board[r, c].IsWhite == piece.IsWhite || canJump) break;
 
-                            // Проверяем возможность взятия
                             int nextR = r + rowDirections[i];
                             int nextC = c + colDirections[i];
 
@@ -338,12 +324,11 @@ namespace CheckersGame
                     }
                 }
             }
-            else // Для обычной шашки
+            else 
             {
                 int direction = piece.IsWhite ? -1 : 1;
                 int[] captureDirections = { -1, 1 };
 
-                // Простые ходы (если не проверяем только взятия)
                 if (!checkCapturesOnly)
                 {
                     int newRow = row + direction;
@@ -360,7 +345,6 @@ namespace CheckersGame
                     }
                 }
 
-                // Проверяем взятия
                 foreach (int colDir in captureDirections)
                 {
                     int newRow = row + 2 * direction;
@@ -381,7 +365,6 @@ namespace CheckersGame
                 }
             }
 
-            // Если проверяем только взятия, удаляем простые ходы
             if (checkCapturesOnly)
             {
                 moves.RemoveAll(m => Math.Abs(m.X - row) < 2 && !piece.IsKing);
@@ -397,8 +380,7 @@ namespace CheckersGame
                 for (int col = 0; col < BoardSize; col++)
                 {
                     if (board[row, col] != null && board[row, col].IsWhite == isWhiteTurn)
-                    {
-                        // Проверяем только взятия (параметр checkCapturesOnly = true)
+                    { 
                         var moves = GetPossibleMoves(row, col, true);
                         if (moves.Count > 0)
                         {
@@ -415,7 +397,7 @@ namespace CheckersGame
             StatusText.Text = isWhiteTurn ? "Ход белых" : "Ход чёрных";
             if (mustCapture)
             {
-                StatusText.Text += " (Обязательное взятие!)";
+                StatusText.Text += "";
             }
         }
 
@@ -454,7 +436,7 @@ namespace CheckersGame
             }
             else
             {
-                // Проверяем, есть ли у текущего игрока возможные ходы
+                
                 bool hasValidMoves = false;
                 for (int row = 0; row < BoardSize; row++)
                 {
